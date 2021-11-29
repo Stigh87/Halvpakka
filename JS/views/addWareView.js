@@ -16,8 +16,8 @@ function addWareView() {
             <input type="text" id="" class="" name="productDescription" value="${product.description}" onchange="model.addProduct.description = this.value"><br>
             <div>På salg?:</div>
             <select id="" class="" name="productSale" value="this.value" onchange="model.addProduct.onSale = this.value">
-                <option value="false" ${product.onSale === "false" ? 'selected' : ''} >Nei</option>
-                <option value="true" ${product.onSale === "true" ? 'selected' : ''}>Ja</option>
+                <option value=false ${product.onSale === false ? 'selected' : ''} >Nei</option>
+                <option value=true ${product.onSale === true ? 'selected' : ''}>Ja</option>
             </select>
             <div>Kategori:</div>
             <select id="categoryChooser" class="" name="categoryChooser" onchange="selectCat(this.value)">`
@@ -105,14 +105,18 @@ view();
 function createWare() {
 let product = model.addProduct;
 let specs = product.specs;
+let newId = createId()
+    if (product.onSale !== "false") {
+        model.sale.push(newId);
+    }
    model.products.push(
         {
-        id: createId(),
+        id: newId,
         parentId: parseInt(product.parentId),
         productNr: createProdNr(),
         rating: [],
         ratingSum: 0,
-        onSale: product.onSale,
+        onSale: product.onSale === "true" ? true : false,
         productName: product.productName,
         price: product.price,
         salePrice: product.salePrice,
@@ -127,8 +131,8 @@ let specs = product.specs;
         pic: model.addProduct.pic,
     },
     );
+   
 clearModel()
-
 }
 
 function clearModel() {
