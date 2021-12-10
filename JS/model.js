@@ -4,19 +4,17 @@ const model = {
     //app
     app: {
         currentPage: 'frontPageView',         // 'frontPage', 'productPage', 'shoppingCart',
-        path: ['',],             //
-        currentUser: 'Guest',    // inlogging funksjon "medlemmer"
+        // path: ['',],             // Back and foreward funksjon
+        currentUser: 'user',    // inlogging funksjon "medlemmer"
+        index: null,            //brukes for navigasjon etc.
     },
 
 //inputs
     general: {
-        // search: '',
-        // bilder
-        // Bestillings side
-        // Antall + / - ??
         cartCount: 0,
         cartSum: 0,
     },
+
     addProduct: {
         id: 0,
         parentId: 0,
@@ -37,6 +35,7 @@ const model = {
         ratingSum: 0,
         onSale: false,
         },
+
     byteArray: [],
 
     addWare: {
@@ -52,7 +51,7 @@ const model = {
             sCatName: '',
             description: '',
             pic: null,
-            },
+    },
 
     addCat: {
         catId: '', 
@@ -88,62 +87,39 @@ const model = {
     info: {
         logo: 'bilder/logo.png',
         cart: 'bilder/handlekurv.png'
-    }, //legges i view?
-
-
+    }, 
 
     shoppingCart: [
-        {poductId: 0, count: 2},
-        {poductId: 2, count: 2},
-        {poductId: 4, count: 1},
-        {poductId: 6, count: 2},
-       
     ],
-
-    // orders: [
-    //     {
-    //         customer: '',
-    //         orderLines: [
-    //             {id: 0, count: 0,},
-    //         ],
-    //     },
-    // ],
 
     categories: [
         {catId: 0, catName: 'Salg',},
         {catId: 1, catName: 'Nyheter',},
-            {catId: 2, catName: 'Kofferter',},
-        // {catId: 3, catName: 'Oppbevaring',},
+        {catId: 2, catName: 'Kofferter',},
+                    // {catId: 3, catName: 'Oppbevaring',},
         {catId: 4, catName: 'Elektronikk',},
         {catId: 9, catName: 'Diverse',},
         {catId: 10, catName: 'Høydepunkter',},
     ],
 
     subCategories: [
-        {sCatId: 0, parentId: 0, sCatName: 'Salg', description: 'Varer på salg',},
-            
-        // {sCatId: 10, parentId: 1, sCatName: 'Underkategori1'},
-        // {sCatId: 11, parentId: 1, sCatName: 'Underkategori2'},
-        // {sCatId: 12, parentId: 1, sCatName: 'Underkategori3'},
-        // {sCatId: 13, parentId: 1, sCatName: 'Underkategori4'},
-            {sCatId: 20, parentId: 2, sCatName: 'Osl Serie', pic: 'bilder/redigert/OSL3.png', description: 'Kofferter OSL Serie',},
-            {sCatId: 21, parentId: 2, sCatName: 'Helsinki Serie', pic: 'bilder/redigert/hels1.png', description: 'Kofferter Helsinki Serie',},
-            {sCatId: 22, parentId: 2, sCatName: 'Business', pic: 'bilder/OSLbuiz2.jpg', description: 'Kofferter Buisness/Håndbagasje Serie',},
-            {sCatId: 23, parentId: 2, sCatName: 'Set', pic: 'bilder/OslSerie.jpg', description: 'Koffert set', },
-        {sCatId: 40, parentId: 4, sCatName: 'Batteribank', pic: 'bilder/batteribank.jpg', description: 'Powerbank',},
-        {sCatId: 41, parentId: 4, sCatName: 'AirPods', pic: 'bilder/inpodsCat.jpg', description: 'Airpods i forskjellige farger og modeller',},
-        {sCatId: 42, parentId: 4, sCatName: 'Tilbehør', pic: 'bilder/laderCat.jpg', description: 'Diverse tilbehør; ledninger',},    
-        // {sCatId: 30, sCatName: ''},
-        // {sCatId: 40, sCatName: ''},
-        // {sCatId: 50, sCatName: ''},
+        {sCatId: 0, parentId: 0, sCatName: 'Salg', description: 'Varer på salg',},   
+        {sCatId: 200, parentId: 2, sCatName: 'Osl Serie', pic: 'bilder/redigert/OSL3.png', description: 'Kofferter OSL Serie',},
+        {sCatId: 210, parentId: 2, sCatName: 'Helsinki Serie', pic: 'bilder/redigert/hels1.png', description: 'Kofferter Helsinki Serie',},
+        {sCatId: 220, parentId: 2, sCatName: 'Business', pic: 'bilder/OSLbuiz2.jpg', description: 'Kofferter Buisness/Håndbagasje Serie',},
+        {sCatId: 230, parentId: 2, sCatName: 'Set', pic: 'bilder/OslSerie.jpg', description: 'Koffert set', },
+        {sCatId: 400, parentId: 4, sCatName: 'Batteribank', pic: 'bilder/batteribank.jpg', description: 'Powerbank',},
+        {sCatId: 410, parentId: 4, sCatName: 'InPods', pic: 'bilder/inpodsCat.jpg', description: 'Inpods i forskjellige farger og modeller',},
+        {sCatId: 420, parentId: 4, sCatName: 'Tilbehør', pic: 'bilder/laderCat.jpg', description: 'Diverse tilbehør; ledninger',},    
+
     ],
-    sale: [3, 6, 7, 0,],
-    highlitghs: [3, 41, 20, 1],
+    sale: [],
+    highlitghs: [3, 410, 200, 1,],
 
     products: [
         {
-            id: 0,
-            parentId: 20,
+            id: 1,
+            parentId: 200,
             productNr: 1000,
             productName: 'OSL small',
             price: 1295,
@@ -153,17 +129,17 @@ const model = {
             specs: {
                 dimensions: '38x20x55cm',
                 weight: '2,2kg',
-                volume: '37l',
+                volume: '37',
                 other: '',
             },  
             storageCount: 5,
             rating: [9, 9, 7, 9, 9, 8, 8, 9, 10, 9,], //endre til objekter for kundeomtale.
             ratingSum: 0,
-            onSale: true,
+            onSale: false,
         },
         {
-            id: 1,
-            parentId: 20,
+            id: 2,
+            parentId: 200,
             productNr: 1001,
             productName: 'OSL medium',
             price: 1495,
@@ -173,7 +149,7 @@ const model = {
             specs: {
                 dimensions: '45x26,5x67cm',
                 weight: '2,6kg',
-                volume: '62l',
+                volume: '62',
                 other: '',
             },  
             storageCount: 8,
@@ -182,8 +158,8 @@ const model = {
             onSale: false,
         },
         {
-            id: 2,
-            parentId: 20,
+            id: 3,
+            parentId: 200,
             productNr: 1002,
             productName: 'OSL large',
             price: 1695,
@@ -193,7 +169,7 @@ const model = {
             specs: {
                 dimensions: '50,5x31,5x77cm',
                 weight: '3,2kg',
-                volume: '92l',
+                volume: '92',
                 other: '',
             },  
             storageCount: 6,
@@ -202,8 +178,8 @@ const model = {
             onSale: false,
         },
         {
-            id: 3,
-            parentId: 22,
+            id: 4,
+            parentId: 220,
             productNr: 1003,
             productName: 'OSL Buisness',
             price: 1695,
@@ -213,17 +189,17 @@ const model = {
             specs: {
                 dimensions: '50,5x31,5x77cm',
                 weight: '3,2kg',
-                volume: '92l',
+                volume: '92',
                 other: '',
             },  
             storageCount: 6,
             rating: [9, 9, 7, 10, 10, 10, 10, 10, 10, 9,],
             ratingSum: 0,
-            onSale: true,
+            onSale: false,
         },
         {
-            id: 4,
-            parentId: 40,
+            id: 5,
+            parentId: 400,
             productNr: 1004,
             productName: 'Powebank',
             price: 999,
@@ -242,14 +218,14 @@ const model = {
             onSale: false,
         },
         {
-            id: 5,
-            parentId: 41,
+            id: 6,
+            parentId: 410,
             productNr: 1005,
-            productName: 'AirPod Sort',
+            productName: 'Inpods Sort',
             price: 199,
             salePrice: 149,
             pic: ['bilder/airpod2.jpg',],
-            description: 'Replica airpods gir god lyd til en billig penge. Perfekt til reisen',
+            description: 'Replica Inpods gir god lyd til en billig penge. Perfekt til reisen',
             specs: {
                 dimensions: null,
                 weight: null,
@@ -262,14 +238,14 @@ const model = {
             onSale: false,
         },
         {
-            id: 6,
-            parentId: 41,
+            id: 7,
+            parentId: 410,
             productNr: 1006,
-            productName: 'AirPod Hvit',
+            productName: 'Inpods Hvit',
             price: 199,
             salePrice: 149,
             pic: ['bilder/airpod3.jpg',],
-            description: 'Replica airpods gir god lyd til en billig penge. Perfekt til reisen',
+            description: 'Replica Inpods gir god lyd til en billig penge. Perfekt til reisen',
             specs: {
                 dimensions: null,
                 weight: null,
@@ -279,37 +255,17 @@ const model = {
             storageCount: 100,
             rating: [7, 3],
             ratingSum: 0,
-            onSale: true,
-        },
-        {
-            id: 7,
-            parentId: 41,
-            productNr: 1007,
-            productName: 'AirPod Turkis',
-            price: 199,
-            salePrice: 149,
-            pic: ['bilder/airpod1.jpg',],
-            description: 'Replica airpods gir god lyd til en billig penge. Perfekt til reisen',
-            specs: {
-                dimensions: null,
-                weight: null,
-                volume: null,
-                other: '',
-            },  
-            storageCount: 100,
-            rating: [7, 8],
-            ratingSum: 0,
-            onSale: true,
+            onSale: false,
         },
         {
             id: 8,
-            parentId: 41,
-            productNr: 1008,
-            productName: 'AirPod Marrakesh',
+            parentId: 410,
+            productNr: 1007,
+            productName: 'Inpods Turkis',
             price: 199,
             salePrice: 149,
-            pic: ['bilder/airpod4.jpg',],
-            description: 'Replica airpods gir god lyd til en billig penge. Perfekt til reisen',
+            pic: ['bilder/airpod1.jpg',],
+            description: 'Replica Inpods gir god lyd til en billig penge. Perfekt til reisen',
             specs: {
                 dimensions: null,
                 weight: null,
@@ -323,7 +279,27 @@ const model = {
         },
         {
             id: 9,
-            parentId: 21,
+            parentId: 410,
+            productNr: 1008,
+            productName: 'Inpods Marrakesh',
+            price: 199,
+            salePrice: 149,
+            pic: ['bilder/airpod4.jpg',],
+            description: 'Replica Inpods gir god lyd til en billig penge. Perfekt til reisen',
+            specs: {
+                dimensions: null,
+                weight: null,
+                volume: null,
+                other: '',
+            },  
+            storageCount: 100,
+            rating: [7, 8],
+            ratingSum: 0,
+            onSale: false,
+        },
+        {
+            id: 10,
+            parentId: 210,
             productNr: 1009,
             productName: 'Helsinki',
             price: 1990,

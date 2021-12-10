@@ -54,9 +54,10 @@ body {
         "nav"
         "content"
         "footer"; */
-display: flex;
-flex-direction: column;
-overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    justify-content: space-around;
 /* overflow-y: scroll; */
 }
     .nav {
@@ -64,7 +65,7 @@ overflow: hidden;
         grid-area: nav;
         width: 100%;
         display: grid;
-            grid-template-columns: 0.5fr 1fr 1fr 0.4fr ;
+            grid-template-columns: 0.5fr 1fr 1fr 0.7fr ;
             grid-template-rows: 0.5fr 1fr 1fr;
             grid-template-areas:
             "logo header header cart"
@@ -73,13 +74,14 @@ overflow: hidden;
 
         height: 100px;
         background-color: var(--backgroundColor);
+        
     }
         .logo {
             grid-area: logo;
             height: 100%;
             left: 0;
             cursor: pointer;
-
+            z-index: 2;
         }
         .header {
             grid-area: header;
@@ -89,7 +91,8 @@ overflow: hidden;
             font-family: 'Zen Antique', serif;
             font-weight: bold;
             cursor: pointer;
-            z-index: 1;
+            z-index: 2;
+            /* padding: 1em; */
         }
         .btnContainer {
             z-index: 2;
@@ -158,7 +161,7 @@ overflow: hidden;
                             padding: 5%;
                             min-width: 120px;
                             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-                            z-index: 10;
+                            z-index: 2;
                             text-align: left;
                         }
                         .subMenuBtn:hover {
@@ -170,33 +173,50 @@ overflow: hidden;
         .cart {
             grid-area: cart;
             cursor: pointer;
-            display: grid;
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: 1fr 1fr 1fr;
-                gap: 0px 0px;
+            /* display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
                 grid-template-areas:
                 "admin admin"
                 "cartHead cartHead" 
-                "cartLogo cartCount"; 
-                justify-content: center;      
+                "cartLogo cartCount";  */
+                /* justify-content: center;       */
+            display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+            justify-content: flex-end;
+            
         }
-            #admin {
+            .admin {
                 height: 25px;
-                width: 100px;
+                width: 60px;
                 background-color: rgba(255, 0, 0, 0.404);
+            }
+            .adminOk {
+                height: 25px;
+                width: 60px;
+                background-color: rgba(4, 116, 0, 0.404);
             }
 
             #cartHead {
                 grid-area: cartHead;
-                text-align: center;
+               
             }
             #cartLogo {
                 grid-area: cartLogo;
-                max-width: 50px;
-                max-height: 50px;
+                max-width: 40px;
+                max-height: 40px;
+                margin-right: 2vw;
             }
             #cartTotalCount {
                 grid-area: cartCount;
+                width: 60px;
+                display: flex;
+                width: auto;
+                height: auto;
+            }
+            #cartCountnr {
+                font-size: small;
             }
 
 .inputContainer {
@@ -218,27 +238,63 @@ overflow: hidden;
         row-gap: 3%;
         padding-left: 2em;
         padding-top: 2em;
+        margin-left: 5vw;
+        margin-right: 5wv;
         display: flex;
             flex-direction: column;
+        justify-content: flex-start;
+    }
+    .contHeader{
        
+        height: 100%;
+        text-align: center;
+        font-size: xx-large;
+        font-family: 'Zen Antique', serif;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1;
+        padding: 1em;
     }
     .contentItemProduct {
         flex: 1 1 auto;
+        z-index: 1;
+        display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+        justify-content: space-around;
+        width: auto;
+        margin-left: 20vw;
+        margin-right: 20vw;
+    }
+    #prodImg {
+        max-height: 150px;
+        max-width: 100px;
     }
     .contentProduct {
         display: grid;
-        grid-template-columns: 1.5fr 1fr 1fr 2fr 1.5fr;
+        grid-template-columns: 0.5fr 1fr 1fr 2fr 1fr 1fr;
                 grid-template-rows: 1fr;
                 grid-template-areas:
-                ". img name desc ."; 
+                ". img name desc admin ."; 
         position: relative;
         margin-bottom: 1rem;
+        z-index: 1;
+        margin-top: 5vh;
     }
         #catImg {
             grid-area: img;
             min-height: 100px;
             gap: 10px;
+            cursor: pointer;
         }
+            #catImg:hover {
+                grid-area: img;
+                min-height: 100px;
+                gap: 10px;
+                cursor: pointer;
+            }
+            
+
         #catName {
             grid-area: name;
             position: absolute;
@@ -251,26 +307,40 @@ overflow: hidden;
             bottom: 0%; 
             font-size: larger;
             bottom: 15%;
+            cursor: pointer;
         }
-
+        #adminContainer2 {
+            grid-area: admin;
+        }
 
     .contentItem {
         display: grid;
-        grid-template-columns: 1.5fr 1fr 1fr 2fr 1fr 1.5fr;
+        grid-template-columns: 0.5fr 1fr 1fr 2fr 1fr 1fr 1fr;
                 grid-template-rows: 1fr;
                 gap: 0px 0px;
                 grid-template-areas:
-                ". img name desc price ."; 
+                ". img name desc price admin ."; 
         position: relative;
         margin-bottom: 1rem;
+        z-index: 1;
+        margin-top: 5vh;
     }
         #subCatImg {
             grid-area: img;
+            cursor: pointer;
         }
+            #subCatImg:hover {
+                grid-area: img;
+                cursor: pointer;
+                zoom: 1.5;
+            }
+
+
         #subCatName {
             grid-area: name;
             position: absolute;
-            bottom: 10%;         
+            bottom: 10%; 
+            cursor: pointer;        
         }
         #subCatDesc {
             grid-area: desc;
@@ -284,7 +354,72 @@ overflow: hidden;
             bottom: 10%; 
             right: 5%;
         }
+        #adminContainer {
+            grid-area: admin;
+            position: absolute;
+            bottom: 10%; 
+            right: 5%;
+            /* display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+            justify-content: space-around; */
+            display: grid;  
+                
+        }
+            .adminBtn{
+                width: 25px;
+                height: 12px;
+                border: black 3px solid;
+                border-radius: 99999px;
+                background-color: whitesmoke;
+                cursor: pointer;
+                background-color: rgba(255, 98, 98, 0.664);
+            }
+                .adminBtnActive{
+                    width: 25px;
+                    height: 12px;
+                    border: black 3px solid;
+                    border-radius: 99999px;
+                    background-color: rgba(98, 255, 98, 0.664);
+                }
 
+                .slideBtn{
+                    width: 5px;
+                    height: 5px;
+                    margin-top: 0.5px;
+                    margin-left: 1px;
+                    border: black 2px solid;
+                    border-radius: 50%;
+                    background-color: rgb(0, 0, 0);
+                    
+                }
+                .slideBtnActive{
+                    width: 5px;
+                    height: 5px;
+                    margin-top: 0.5px;
+                    margin-left: 14px;
+                    border: black 2px solid;
+                    border-radius: 50%;
+                    background-color: rgb(0, 0, 0);
+                }    
+    
+            .adminTag{
+
+            }
+
+            #saleBtn{
+                cursor: pointer;
+            }
+            #saleTag{
+              
+            }
+            #highBtn{
+                cursor: pointer;
+            }
+            #highTag{
+
+            }
+     
     .contentCart { 
         display: grid;
         grid-template-columns: 0.5fr 1fr 2fr 1fr 2fr 0.5fr;
@@ -324,9 +459,15 @@ overflow: hidden;
         padding-bottom: 1em;
         font-weight: bolder;
         font-size: 2em;
+        display: flex;
+        justify-content: center;
+        padding: 1em;
     }
-    #prodName {
-        
+    #adminContainer3 {
+        display: flex;
+            justify-content: center;
+        margin-right: 10vw;
+        gap: 20px;
     }
 
 
@@ -334,12 +475,22 @@ overflow: hidden;
         border-radius: 9999px;
         padding: 0.5em;
         font-weight: bold;
+        padding-left: 30px;
+        padding-right: 30px;
+        max-width: fit-content;
     }
     .largeImage {
+        max-width: 200px;
+        max-height: 300px;
         height: 300px;
     }
     .largeImage:hover {
         height: 500px;
+        max-height: 500px;
+        max-width: 400px;
+    }
+    .infoTekst {
+        overflow: hidden;
     }
 
     .footer {
@@ -349,20 +500,40 @@ overflow: hidden;
         bottom: 0;
         width: 100%;
         grid-area: footer;
-        display: grid;
+        /* display: grid;
             grid-template-columns: 1fr 2fr 1fr ;
             grid-template-rows: 1fr;
             gap: 0px 0px;
             grid-template-areas:
-            "about info terms";
+            "about info terms"; */
         background-color: var(--footerColor);
+        display: flex;
+        justify-content: space-around;
+
     }
-
-
-
 
     .sum {
         right: 0;
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
+    }
+
+    .hidden {
+        display: none;
+    }
+    .cartButton{
+        width: 200px;
+    }
+
+    #sumContainer {
+       position: relative;
+       right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        margin: 1em;
+        
+    }
+    #mainHeader {
+        
     }

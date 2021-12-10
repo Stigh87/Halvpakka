@@ -1,19 +1,18 @@
 function cartView() {
+    // litt css
     let totalSum = 0;  
     let html = ` 
         <div id="" class="contentContainer">
             <div id="" class="contentHeader">
-                <div id="" class="header">HANDLEKURV</div>
+                <div id="" class="contHeader">HANDLEKURV</div>
             </div>`
 
             for (let i = 0; i < model.shoppingCart.length; i++) {
                 let products = model.products;
-                
-                const id = model.shoppingCart[i].poductId; 
-                
-                const count = model.shoppingCart[i].count;
-                const itemPrice = products[id].onSale ? products[id].salePrice : products[id].price;
-                const itemsSum = count * itemPrice;
+                let id = model.products.findIndex((x)=> x.id == model.shoppingCart[i].poductId); 
+                let count = model.shoppingCart[i].count;
+                let itemPrice = products[id].onSale ? products[id].salePrice : products[id].price;
+                let itemsSum = count * itemPrice;
                 totalSum += itemsSum;
                 model.general.cartSum = totalSum;
                 html += `
@@ -30,10 +29,11 @@ function cartView() {
             };
     
     html += `
+    <div id="sumContainer">
         <div id="" class="sum">TOTAL SUM: Kr.${totalSum},-</div>
-        <button id="" class="" onclick="commit()">Bekreft Kjøp</button>     
-        <button id="" class="" onclick="cancelOrder()">Avbryt Kjøp</button>`    
-        
+        <button id="" class="cartButton" onclick="commit()">Bekreft Kjøp</button>     
+        <button id="" class="cartButton" onclick="cancelOrder()">Avbryt Kjøp</button>
+    </div>`    
         
     html += `</div>`
 
@@ -41,8 +41,15 @@ return html;
 };
 
 function adjustCount(element, index) {
+    let foundIndex = model.products.findIndex((x) => x.id === model.shoppingCart[index].poductId);
+    let totalCount = model.products[foundIndex].storageCount + model.shoppingCart[index].count;
+    if (element.value > totalCount) {alert('Tomt på lager, kun ' + totalCount + ' igjen!'); return;}
+    if (element.value <= totalCount) {
     model.shoppingCart[index].count = parseInt(element.value); 
+    }
+    model.products[foundIndex].storageCount = totalCount - element.value;
     checkRemove(index);
+    
 }
 function checkRemove(index) {
     if (model.shoppingCart[index].count == 0) {
@@ -62,9 +69,9 @@ function updateCart() {
     if (model.shoppingCart.length >= 1) {
     for (let i = 0; i < model.shoppingCart.length; i++) {
         let products = model.products;
-        const id = model.shoppingCart[i].poductId; 
+        const index = model.products.findIndex((x)=> x.id === model.shoppingCart[i].poductId); 
         const count = model.shoppingCart[i].count;
-        const itemPrice = products[id].onSale ? products[id].salePrice : products[id].price;
+        const itemPrice = products[index].onSale ? products[index].salePrice : products[index].price;
         const itemsSum = count * itemPrice;
         totalSum += itemsSum;
         model.general.cartSum = totalSum;

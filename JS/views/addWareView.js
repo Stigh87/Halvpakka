@@ -6,19 +6,6 @@ function addWareView() {
         <div id="" class="inputContainer">
             <br>
             </br>
-            <div>Produktnavn:</div>
-            <input type="text" id="" class="" name="productName" value="${product.productName}" onchange="model.addProduct.productName = this.value"></br>
-            <div>Ordinær Pris:</div>
-            <input type="number" id="" class="" name="productPrice" value="${product.price}" onchange="model.addProduct.price = this.value"></br>
-            <div>Salg Pris:</div>
-            <input type="number" id="" class="" name="productSalePrice" value="${product.salePrice}" onchange="model.addProduct.salePrice = this.value"></br>
-            <div>Beskrivelse:</div>
-            <input type="text" id="" class="" name="productDescription" value="${product.description}" onchange="model.addProduct.description = this.value"><br>
-            <div>På salg?:</div>
-            <select id="" class="" name="productSale" value="this.value" onchange="model.addProduct.onSale = this.value">
-                <option value=false ${product.onSale === false ? 'selected' : ''} >Nei</option>
-                <option value=true ${product.onSale === true ? 'selected' : ''}>Ja</option>
-            </select>
             <div>Kategori:</div>
             <select id="categoryChooser" class="" name="categoryChooser" onchange="selectCat(this.value)">`
             html += `<option value="">${catChooser.name}</option>`
@@ -44,7 +31,19 @@ function addWareView() {
                 }}};
 
             html+= `</select>
-                <button id="" class="" onclick="changeView('addCategoriesView')">Ny Kategori</button>
+            <button id="" class="" onclick="changeView('addCategoriesView')">Ny Kategori</button>
+
+            <div>Produktnavn:</div>
+            <input type="text" id="" class="" name="productName" value="${product.productName}" onchange="model.addProduct.productName = this.value"></br>
+            <div>Ordinær Pris:</div>
+            <input type="number" id="" class="" name="productPrice" value="${product.price}" onchange="model.addProduct.price = this.value"></br>
+            <div>Salg Pris:</div>
+            <input type="number" id="" class="" name="productSalePrice" value="${product.salePrice}" onchange="model.addProduct.salePrice = this.value"></br>
+            <div>Beskrivelse:</div>
+            <input type="text" id="" class="" name="productDescription" value="${product.description}" onchange="model.addProduct.description = this.value"><br>
+            <div>Lagerbeholdning:</div>
+            <input type="number" id="" class="" name="productHolding" value="${product.storageCount}" onchange="model.addProduct.storageCount = this.value"></br>
+                
             <br>
             </br>
             <div>Bilder:</div>
@@ -64,8 +63,7 @@ function addWareView() {
                 <input type="text" id="" class="" name="productVolume" value="${specs.volume}" onchange="model.addProduct.specs.volume = this.value"></br>
                 <div>Annet:</div>
                 <input type="text" id="" class="" name="productOther" value="${specs.other}" onchange="model.addProduct.specs.other = this.value"></br>
-            <div>Lagerbeholdning:</div>
-            <input type="number" id="" class="" name="productHolding" value="${product.storageCount}" onchange="model.addProduct.storageCount = this.value"></br>
+            
             <br>
             </br>
             <button id="" class="" onclick="createWare()">Ferdig</button>
@@ -106,9 +104,9 @@ function createWare() {
 let product = model.addProduct;
 let specs = product.specs;
 let newId = createId()
-    if (product.onSale !== "false") {
-        model.sale.push(newId);
-    }
+    // if (product.onSale !== "false") {
+    //     model.sale.push(newId);
+    // }
    model.products.push(
         {
         id: newId,
@@ -116,12 +114,12 @@ let newId = createId()
         productNr: createProdNr(),
         rating: [],
         ratingSum: 0,
-        onSale: product.onSale === "true" ? true : false,
+        onSale: false,
         productName: product.productName,
-        price: product.price,
-        salePrice: product.salePrice,
+        price: parseInt(product.price),
+        salePrice: parseInt(product.salePrice),
         description: product.description,
-        storageCount: product.storageCount,
+        storageCount: parseInt(product.storageCount),
         specs: {
             dimensions: specs.dimensions,
             weight: specs.weight,

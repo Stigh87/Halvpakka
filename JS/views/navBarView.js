@@ -5,7 +5,7 @@ let html =
     `<div id="" class="container">
         <div id="" class="nav">
         <img id="" class="logo" src="${model.info.logo}" onclick="changeView('frontPageView')"></img>
-        <div id="" class="header" onclick="changeView('frontPageView')">HALVPAKKA</div> 
+        <div id="mainHeader" class="header" onclick="changeView('frontPageView')">HALVPAKKA</div> 
         <div id="" class="btnContainer">`
             for (let i = 0; i < model.categories.length; i++) {
                 let catI = model.categories[i];
@@ -23,7 +23,7 @@ let html =
                         if (subCatI.parentId === catI.catId) {
                             if (subCatI.sCatName === 'Salg') {
                                 for (let u = 0; u < model.sale.length; u++) {
-                                    let saleId = model.sale[u];
+                                    let saleId = model.products.findIndex((x)=> x.id == model.sale[u]);
                                     html += `<div id="subMenuBtn${j}" class="subMenuBtn"
                                     onclick="changeView('productView', ${saleId})"    
                                     >${model.products[saleId].productName}</div>`
@@ -44,19 +44,22 @@ let html =
             for (let c = 0; c < model.shoppingCart.length; c++) {
                 model.general.cartCount += model.shoppingCart[c].count;
             };
-        html +=`   
+        html += /*html*/`   
             <div id="" class="cart" >
-                <button id="admin" class="" onclick="changeView('addWareView')">Nye varer</button>
+                <button id="admin" class="${model.app.currentUser == 'admin' ? 'adminOk' : 'admin'}" onclick="adminMode()">ADMIN</button>
+                <button id="admin" class="admin" onclick="changeView('addWareView')">Add</button>
                 <div id="cartHead" class="" onclick="changeView('cartView')">Handlekurv</div>
-                <img id="cartLogo" class="" src="${model.info.cart}" onclick="changeView('cartView')"></img>
-                <div id="cartTotalCount" class="" onclick="changeView('cartView')">Kr. ${model.general.cartSum},- (${model.general.cartCount})</div>
+                <div id="cartTotalCount" class="" onclick="changeView('cartView')">
+                    <img id="cartLogo" class="" src="${model.info.cart}" onclick="changeView('cartView')"
+                    >Kr. ${model.general.cartSum},- 
+                    <div id="cartCountnr">(${model.general.cartCount})</div>
+                </div>
             </div>
             
     </div>
     <div id="" class="footer">
     <div id="" class="footerMenu" onclick="changeView('aboutView')">About</div>
     <div id="" class="infoText">Halvpakka <br>
-                                Restica Gundersen <br>
                                 Stigh Gundersen <br>
                                 Helgeroveien 20A <br>
                                 3290 Stavern <br>
